@@ -1,0 +1,12 @@
+network:
+  ethernets:
+    ens192:
+      addresses:
+      - {{ item.Configuration.OS.IPv4Address }} 
+      gateway4: {{ item.Configuration.OS.IPv4Gateway }}
+      nameservers:
+        addresses:
+        - {{ item.Configuration.OS.IPv4DNS }}
+        search:
+        - {{ item.Configuration.OS.SearchDomain }}
+  version: 2

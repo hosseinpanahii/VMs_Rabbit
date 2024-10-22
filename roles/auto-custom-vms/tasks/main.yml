@@ -1,0 +1,3 @@
+---
+- name: Create and customize VM via xorrior,clould-init,Vmware
+  import_tasks: deploy-vms.yml

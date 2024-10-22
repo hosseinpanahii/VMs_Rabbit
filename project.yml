@@ -1,0 +1,5 @@
+---
+- name: Start deploy your (Deploy VMs,Nexus,Traefik,Vote,Swarm)
+  hosts: localhost
+  roles:
+    - auto-custom-vms

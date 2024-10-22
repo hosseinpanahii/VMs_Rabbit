@@ -1,0 +1,183 @@
+---
+# vars file for auto-custom-vms
+Global:
+  Workingdir: "{{ lookup('env','HOME') }}/deployCusVMs"                         # Temp directory on the Ansible Controller
+  UbuntuISO: ubuntu-22.04-autoinstall.iso                                     # Ubuntu ISO filename
+  UbuntuISO_ORG: ubuntu-22.04.5-live-server-amd64.iso                                     # Ubuntu ISO filename
+  UbuntuISO_URL: https://releases.ubuntu.com/jammy/   # Ubuntu ISO URL
+  ISODatastore: datastore                                                         # The vSphere Datastore where the Ubuntu ISO will be stored
+  ISODatastoreDir: ISO                                                               # The vSphere Datastore directory where the Ubuntu ISO will be stored. This directory is created if it doesn't exist.
+  ISODatacenter: demo-datacenter                                                   # The vSphere Datacenter to which the vSphere ISODatastore belongs
+  Hostname_tmp: ubuntu
+ESXI:
+  IP: 192.168.1.6
+  #FQDN: vcenter.demo.lab                        # vCenter FQDN
+  User: root                                     # vCenter or esxi Username
+  Password: P@ssw0rd                             # vCenter Password
+
+VMsToDeploy:
+  - Name: swarm-node1                        # The VM's name
+    Deploy: true                             # If set to "true" the VM is deployed
+    Placement:
+      #Datacenter: demo-datacenter           # The VM's vCenter Datacenter
+      #Cluster: demo-cluster                 # The VM's vSphere Cluster 
+      Datastore: datastore                   # The VM's vSphere datastore
+      Folder: "/"                            # The VM's vCenter VM folder
+    Configuration:
+      VM:
+        GuestID: ubuntu64Guest                   # The VM's Guest OS ID
+        PowerState: poweredon                    # The VM's Power State
+      Storage:
+        DiskSize: 10                             # The VM's disksize in GB
+        DiskType: thin                           # The VM's Disk Type
+        SCSIController: paravirtual              # The VM's SCSI Adapter
+      Compute:
+        MemorySize: 2048                         # The VM's memory size in MB
+        CPUs: 1                                  # The VM's number of CPUs
+        Cores: 1                                 # The VM's number of Cores
+      Network:
+        Portgroup: pg-vms                     # The VM's vSphere Portgroup
+        NetworkAdapter: vmxnet3                  # The VM's Network Adapter
+      OS:
+        User: ubuntu                             # Ubuntu OS username
+        Password: ubuntu                       # Ubuntu OS password
+        Hostname: swarm-node1                # Ubuntu OS hostname
+        Locale: en_US                            # Ubuntu OS locale
+        Keyboardlayout: us                       # Ubuntu OS keyboard layout
+        Keyboardvariant: intl                    # Ubuntu OS keyboard variant
+        IPv4Address: 192.168.1.101/24            # Ubuntu OS IPv4 address
+        IPv4Gateway: 192.168.1.2                  # Ubuntu OS IPv4 gateway
+        IPv4DNS: 8.8.8.8                      # Ubuntu OS DNS server
+        SearchDomain: demo.lab                   # Ubuntu OS DNS search domain
+  - Name: swarm-node2                       # The VM's name
+    Deploy: false                                # If set to "true" the VM is deployed
+    Placement:
+      Datacenter: demo-datacenter             # The VM's vCenter Datacenter
+      Cluster: demo-cluster                          # The VM's vSphere Cluster 
+      Datastore: datastore                   # The VM's vSphere datastore
+      Folder: /                                  # The VM's vCenter VM folder
+    Configuration:
+      VM:
+        GuestID: ubuntu64Guest                   # The VM's Guest OS ID
+        PowerState: poweredon                    # The VM's Power State
+      Storage:
+        DiskSize: 10                             # The VM's disksize in GB
+        DiskType: thin                           # The VM's Disk Type
+        SCSIController: paravirtual              # The VM's SCSI Adapter
+      Compute:
+        MemorySize: 2048                         # The VM's memory size in MB
+        CPUs: 1                                  # The VM's number of CPUs
+        Cores: 1                                 # The VM's number of Cores
+      Network:
+        Portgroup: VMNetwork                     # The VM's vSphere Portgroup
+        NetworkAdapter: vmxnet3                  # The VM's Network Adapter
+      OS:
+        User: ubuntu                             # Ubuntu OS username
+        Password: ubuntu                       # Ubuntu OS password
+        Hostname: swarm-node1                # Ubuntu OS hostname
+        Locale: en_US                            # Ubuntu OS locale
+        Keyboardlayout: us                       # Ubuntu OS keyboard layout
+        Keyboardvariant: intl                    # Ubuntu OS keyboard variant
+        IPv4Address: 192.168.1.102/24            # Ubuntu OS IPv4 address
+        IPv4Gateway: 192.168.1.2                  # Ubuntu OS IPv4 gateway
+        IPv4DNS: 8.8.8.8                      # Ubuntu OS DNS server
+        SearchDomain: demo.lab                   # Ubuntu OS DNS search domain
+  - Name: swarm-node3                       # The VM's name
+    Deploy: false                                # If set to "true" the VM is deployed
+    Placement:
+      Datacenter: demo-datacenter             # The VM's vCenter Datacenter
+      Cluster: demo-cluster                          # The VM's vSphere Cluster 
+      Datastore: datastore                   # The VM's vSphere datastore
+      Folder: /                                  # The VM's vCenter VM folder
+    Configuration:
+      VM:
+        GuestID: ubuntu64Guest                   # The VM's Guest OS ID
+        PowerState: poweredon                    # The VM's Power State
+      Storage:
+        DiskSize: 10                             # The VM's disksize in GB
+        DiskType: thin                           # The VM's Disk Type
+        SCSIController: paravirtual              # The VM's SCSI Adapter
+      Compute:
+        MemorySize: 2048                         # The VM's memory size in MB
+        CPUs: 1                                  # The VM's number of CPUs
+        Cores: 1                                 # The VM's number of Cores
+      Network:
+        Portgroup: VMNetwork                     # The VM's vSphere Portgroup
+        NetworkAdapter: vmxnet3                  # The VM's Network Adapter
+      OS:
+        User: ubuntu                             # Ubuntu OS username
+        Password: ubuntu                       # Ubuntu OS password
+        Hostname: swarm-node3                # Ubuntu OS hostname
+        Locale: en_US                            # Ubuntu OS locale
+        Keyboardlayout: us                       # Ubuntu OS keyboard layout
+        Keyboardvariant: intl                    # Ubuntu OS keyboard variant
+        IPv4Address: 192.168.1.103/24            # Ubuntu OS IPv4 address
+        IPv4Gateway: 192.168.1.2                  # Ubuntu OS IPv4 gateway
+        IPv4DNS: 10.203.0.5                      # Ubuntu OS DNS server
+        SearchDomain: demo.lab                   # Ubuntu OS DNS search domain
+        #  - Name: nexus                        # The VM's name
+        #    Deploy: false                                # If set to "true" the VM is deployed
+        #    Placement:
+        #      Datacenter: Pod-210-DataCenter             # The VM's vCenter Datacenter
+        #      Cluster: ComputeA                          # The VM's vSphere Cluster 
+        #      Datastore: ComputeA_vSAN                   # The VM's vSphere datastore
+        #      Folder: /                                  # The VM's vCenter VM folder
+        #    Configuration:
+        #      VM:
+        #        GuestID: ubuntu64Guest                   # The VM's Guest OS ID
+        #        PowerState: poweredon                    # The VM's Power State
+        #      Storage:
+        #        DiskSize: 50                             # The VM's disksize in GB
+        #        DiskType: thin                           # The VM's Disk Type
+        #        SCSIController: paravirtual              # The VM's SCSI Adapter
+        #      Compute:
+        #        MemorySize: 2048                         # The VM's memory size in MB
+        #        CPUs: 1                                  # The VM's number of CPUs
+        #        Cores: 1                                 # The VM's number of Cores
+        #      Network:
+        #        Portgroup: VMNetwork                     # The VM's vSphere Portgroup
+        #        NetworkAdapter: vmxnet3                  # The VM's Network Adapter
+        #      OS:
+        #        User: ubuntu                             # Ubuntu OS username
+        #        Password: VMware1!                       # Ubuntu OS password
+        #        Hostname: ubuntu-server04                # Ubuntu OS hostname
+        #        Locale: en_US                            # Ubuntu OS locale
+        #        Keyboardlayout: us                       # Ubuntu OS keyboard layout
+        #        Keyboardvariant: intl                    # Ubuntu OS keyboard variant
+        #        IPv4Address: 10.203.219.14/24            # Ubuntu OS IPv4 address
+        #        IPv4Gateway: 10.203.0.1                  # Ubuntu OS IPv4 gateway
+        #        IPv4DNS: 10.203.0.5                      # Ubuntu OS DNS server
+        #        SearchDomain: sddc.lab                   # Ubuntu OS DNS search domain
+        #  - Name: ubuntu-server05                        # The VM's name
+        #    Deploy: false                                # If set to "true" the VM is deployed
+        #    Placement:
+        #      Datacenter: Pod-210-DataCenter             # The VM's vCenter Datacenter
+        #      Cluster: ComputeA                          # The VM's vSphere Cluster 
+        #      Datastore: ComputeA_vSAN                   # The VM's vSphere datastore
+        #      Folder: /                                  # The VM's vCenter VM folder
+        #    Configuration:
+        #      VM:
+        #        GuestID: ubuntu64Guest                   # The VM's Guest OS ID
+        #        PowerState: poweredon                    # The VM's Power State
+        #      Storage:
+        #        DiskSize: 50                             # The VM's disksize in GB
+        #        DiskType: thin                           # The VM's Disk Type
+        #        SCSIController: paravirtual              # The VM's SCSI Adapter
+        #      Compute:
+        #        MemorySize: 2048                         # The VM's memory size in MB
+        #        CPUs: 1                                  # The VM's number of CPUs
+        #        Cores: 1                                 # The VM's number of Cores
+        #      Network:
+        #        Portgroup: VMNetwork                     # The VM's vSphere Portgroup
+        #        NetworkAdapter: vmxnet3                  # The VM's Network Adapter
+        #      OS:
+        #        User: ubuntu                             # Ubuntu OS username
+        #        Password: VMware1!                       # Ubuntu OS password
+        #        Hostname: ubuntu-server05                # Ubuntu OS hostname
+        #        Locale: en_US                            # Ubuntu OS locale
+        #        Keyboardlayout: us                       # Ubuntu OS keyboard layout
+        #        Keyboardvariant: intl                    # Ubuntu OS keyboard variant
+        #        IPv4Address: 10.203.219.15/24            # Ubuntu OS IPv4 address
+        #        IPv4Gateway: 10.203.0.1                  # Ubuntu OS IPv4 gateway
+        #        IPv4DNS: 10.203.0.5                      # Ubuntu OS DNS server
+        #        SearchDomain: sddc.lab                   # Ubuntu OS DNS search domain
