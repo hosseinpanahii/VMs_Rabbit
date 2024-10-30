@@ -1,0 +1,56 @@
+---
+#- name: add shecan 
+#  template:
+#    src: resolv.conf.j2
+#    dest: "{{ resolv_file  }}"  
+#    mode: 0640  
+- name: remove pre-nameserver in resolve.conf
+  lineinfile:
+      path: /run/systemd/resolve/resolv.conf
+      regexp: "^nameserver"
+      state: absent
+      backup: yes
+- name: "Edit resolve.conf"
+  ansible.builtin.blockinfile:
+    path: /run/systemd/resolve/resolv.conf
+    block: |
+      nameserver 178.22.122.100
+      nameserver 185.51.200.2
+- name: create softlink for resolve.conf
+  command: ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+  #- name: add Repo 
+  #  template:
+  #    src: sources_list.j2
+  #    dest: "{{ apt_file  }}"  
+  #    mode: 0640  
+- name: Update&Upgrade
+  ansible.builtin.apt:
+    name: aptitude
+    state: present
+    update_cache: true
+  ignore_errors: True
+- name: Install dependencies
+  ansible.builtin.apt:
+    name:
+      - net-tools
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+      - gnupg-agent
+      - autoconf
+      - dpkg-dev
+      - file
+      - g++
+      - gcc
+      - libc-dev
+      - make
+      - pkg-config
+      - re2c
+      - wget
+    state: present
+    update_cache: true
+

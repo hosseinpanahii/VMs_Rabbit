@@ -1,0 +1,4 @@
+{% for item in repository_name %}
+deb {{ item }}{{ansible_facts['distribution']}} {{ ansible_facts['distribution_release'] }} universe 
+{% endfor %}
+

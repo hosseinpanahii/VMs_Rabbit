@@ -1,0 +1,5 @@
+---
+- name: configure pre-install docker
+  import_tasks: pre-docker.yml
+- name: configure and install docker
+  import_tasks: docker.yml
