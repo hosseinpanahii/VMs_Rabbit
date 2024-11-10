@@ -1,0 +1,25 @@
+---
+- name: Check if Swarm has already been Initialized
+  shell: docker node ls
+  register: swarm_status
+  ignore_errors: true
+  tags: swarm
+
+- name: Initialize Docker Swarm
+  docker_swarm:
+    state: present
+    advertise_addr: "{{ groups['swarm-manager'][0] }}:2377" 
+  run_once: true
+  register: output_swarm
+  tags: swarm
+  when: swarm_status.rc != 0
+
+- name: Get the Manager join-token
+  shell: docker swarm join-token --quiet manager
+  register: manager_token
+  tags: swarm
+
+- name: Get the worker join-token
+  shell: docker swarm join-token --quiet worker
+  register: worker_token
+  tags: swarm

@@ -1,5 +1,29 @@
 ---
-- name: Start deploy your (Deploy VMs,Nexus,Traefik,Vote,Swarm)
-  hosts: localhost
+#- name: Start deploy your (Deploy VMs,Nexus,Traefik,Vote,Swarm)
+#  hosts: localhost
+#  roles:
+#    - auto-custom-vms
+#- name: Start deploy your (Deploy Docker)
+#  hosts: swarm-node
+#  remote_user: ubuntu
+#  become: yes
+#  gather_facts: true
+#  roles:
+#    - docker
+#- name: Start to Deploy nfs server and  pre-requierment
+#  hosts: localhost
+#  roles:
+#    - nfs-server
+- name: Start init Swarm 
+  hosts: swarm-manager
+  remote_user: ubuntu
+  become: yes
   roles:
-    - auto-custom-vms
+     - swarm-init
+- name: add worker to swarm
+  hosts: swarm-worker
+  remote_user: ubuntu
+  become: yes
+  roles:
+     - swarm-worker-add
+

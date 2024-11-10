@@ -1,3 +1,9 @@
 ---
-- name: Create and customize VM via xorrior,clould-init,Vmware
-  import_tasks: deploy-vms.yml
+#- name: Create and customize VM via xorrior,clould-init,Vmware
+#  import_tasks: deploy-vms.yml
+- name: create inventory file 
+  template:
+    src: inventory.j2
+    dest: "{{ inventory }}"
+    mode: 0640
+

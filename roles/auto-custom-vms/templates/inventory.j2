@@ -1,0 +1,26 @@
+[swarm-node]
+{% for item in  VMsToDeploy %}
+{%   if item.Deploy  %}
+{% set ip_net = item.Configuration.OS.IPv4Address %}
+{% set ip = ip_net.split("/") %}
+{{ ip[0] }}
+{%   endif %}
+{% endfor %}
+
+[swarm-manager]
+{% for item in  VMsToDeploy %}
+{%   if item.Manager  %}
+{% set ip_net = item.Configuration.OS.IPv4Address %}
+{% set ip = ip_net.split("/") %}
+{{ ip[0] }}
+{%   endif %}
+{% endfor %}
+
+[swarm-worker]
+{% for item in  VMsToDeploy %}
+{%   if item.Worker  %}
+{% set ip_net = item.Configuration.OS.IPv4Address %}
+{% set ip = ip_net.split("/") %}
+{{ ip[0] }}
+{%   endif %}
+{% endfor %}

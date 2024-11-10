@@ -129,7 +129,6 @@
   delay: 60
   loop: "{{ VMsToDeploy }}"
   when: item.Deploy
-  #
 - name: Set password for the Ubuntu user
   community.vmware.vmware_vm_shell:
     hostname: "{{ ESXI.IP }}"
@@ -144,8 +143,21 @@
     vm_shell_args: "-e '{{ item.Configuration.OS.Password }}\nubuntu\nubuntu' | passwd {{ item.Configuration.OS.User }} > /tmp/$$.txt 2>&1"
   loop: "{{ VMsToDeploy }}"
   when: item.Deploy
-        
-  
+  #        
+- name: Set HostName for the Ubuntu user
+  community.vmware.vmware_vm_shell:
+    hostname: "{{ ESXI.IP }}"
+    username: "{{ ESXI.User }}"          
+    password: "{{ ESXI.Password }}"
+    validate_certs: false
+    vm_id: "{{ item.Name }}"
+    vm_username: "{{ item.Configuration.OS.User }}"
+    vm_password: ubuntu
+    vm_shell: /usr/bin/echo
+    vm_shell_args:  "{{ item.Configuration.OS.Password }} | sudo -S hostnamectl hostname {{ item.Name }} > /tmp/$$.txt 2>&1"
+  loop: "{{ VMsToDeploy }}"
+  when: item.Deploy
+  #  
 - name: Copy network configuration file(s) to working directory
   ansible.builtin.template:
      src: ./roles/auto-custom-vms/templates/Ubuntu_Netplan.j2

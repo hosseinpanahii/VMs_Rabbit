@@ -14,10 +14,11 @@ ESXI:
   #FQDN: vcenter.demo.lab                        # vCenter FQDN
   User: root                                     # vCenter or esxi Username
   Password: P@ssw0rd                             # vCenter Password
-
+inventory: ./inventory 
 VMsToDeploy:
   - Name: swarm-node1                        # The VM's name
     Deploy: true                             # If set to "true" the VM is deployed
+    Manager: true                            # If set to "true" the VM is manager node in swarm
     Placement:
       #Datacenter: demo-datacenter           # The VM's vCenter Datacenter
       #Cluster: demo-cluster                 # The VM's vSphere Cluster 
@@ -51,6 +52,7 @@ VMsToDeploy:
         SearchDomain: demo.lab                   # Ubuntu OS DNS search domain
   - Name: swarm-node2                       # The VM's name
     Deploy: false                                # If set to "true" the VM is deployed
+    Worker: true
     Placement:
       Datacenter: demo-datacenter             # The VM's vCenter Datacenter
       Cluster: demo-cluster                          # The VM's vSphere Cluster 
@@ -84,6 +86,7 @@ VMsToDeploy:
         SearchDomain: demo.lab                   # Ubuntu OS DNS search domain
   - Name: swarm-node3                       # The VM's name
     Deploy: false                                # If set to "true" the VM is deployed
+    Worker: true
     Placement:
       Datacenter: demo-datacenter             # The VM's vCenter Datacenter
       Cluster: demo-cluster                          # The VM's vSphere Cluster 
@@ -145,39 +148,6 @@ VMsToDeploy:
         #        Keyboardlayout: us                       # Ubuntu OS keyboard layout
         #        Keyboardvariant: intl                    # Ubuntu OS keyboard variant
         #        IPv4Address: 10.203.219.14/24            # Ubuntu OS IPv4 address
-        #        IPv4Gateway: 10.203.0.1                  # Ubuntu OS IPv4 gateway
-        #        IPv4DNS: 10.203.0.5                      # Ubuntu OS DNS server
-        #        SearchDomain: sddc.lab                   # Ubuntu OS DNS search domain
-        #  - Name: ubuntu-server05                        # The VM's name
-        #    Deploy: false                                # If set to "true" the VM is deployed
-        #    Placement:
-        #      Datacenter: Pod-210-DataCenter             # The VM's vCenter Datacenter
-        #      Cluster: ComputeA                          # The VM's vSphere Cluster 
-        #      Datastore: ComputeA_vSAN                   # The VM's vSphere datastore
-        #      Folder: /                                  # The VM's vCenter VM folder
-        #    Configuration:
-        #      VM:
-        #        GuestID: ubuntu64Guest                   # The VM's Guest OS ID
-        #        PowerState: poweredon                    # The VM's Power State
-        #      Storage:
-        #        DiskSize: 50                             # The VM's disksize in GB
-        #        DiskType: thin                           # The VM's Disk Type
-        #        SCSIController: paravirtual              # The VM's SCSI Adapter
-        #      Compute:
-        #        MemorySize: 2048                         # The VM's memory size in MB
-        #        CPUs: 1                                  # The VM's number of CPUs
-        #        Cores: 1                                 # The VM's number of Cores
-        #      Network:
-        #        Portgroup: VMNetwork                     # The VM's vSphere Portgroup
-        #        NetworkAdapter: vmxnet3                  # The VM's Network Adapter
-        #      OS:
-        #        User: ubuntu                             # Ubuntu OS username
-        #        Password: VMware1!                       # Ubuntu OS password
-        #        Hostname: ubuntu-server05                # Ubuntu OS hostname
-        #        Locale: en_US                            # Ubuntu OS locale
-        #        Keyboardlayout: us                       # Ubuntu OS keyboard layout
-        #        Keyboardvariant: intl                    # Ubuntu OS keyboard variant
-        #        IPv4Address: 10.203.219.15/24            # Ubuntu OS IPv4 address
         #        IPv4Gateway: 10.203.0.1                  # Ubuntu OS IPv4 gateway
         #        IPv4DNS: 10.203.0.5                      # Ubuntu OS DNS server
         #        SearchDomain: sddc.lab                   # Ubuntu OS DNS search domain

@@ -19,6 +19,8 @@ autoinstall:
     allow-pw: true
     ssh_quiet_keygen: true
   packages:
+    - tmux
+    - whois
     - dnsutils
   user-data:
     disable_root: false
